@@ -45,9 +45,9 @@ const handleTenure=(e)=>{
           <div className="main_body_container--Down">
             <h3>Down Paymnent (in %)</h3>
             <input type="range" min={0} max={100} placeholder="Enter the Down Payment" onChange={handleSlider} name="D_payment"></input>
-            {/* <div className="downPayments_values">
-              <h5>downpayment selected: {inputObj.D_payment}</h5>
-            </div> */}
+            <div className="downPayments_values">
+              downpayment selected: {inputObj.D_payment}
+            </div>
           </div>
           <div className="main_body_container--Loan">
             <h3>Loan Amount</h3>
