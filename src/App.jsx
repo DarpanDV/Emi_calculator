@@ -3,12 +3,19 @@ import "./App.css"
 
 function App() {
 
-const[inputObj,setInputObj]=useState({P_amount:0,ROI:0,P_fee:0});
+const[inputObj,setInputObj]=useState({P_amount:0,ROI:0,P_fee:0,D_payment:0});
+const[slider1,setSlider1]= useState(0);
+const[slider2,setSlider2]= useState(0);
 
 const handleInput=(e)=>{
   setInputObj({...inputObj,
     [e.target.name]:e.target.value
   })
+}
+
+const handleSlider=(e)=>{
+  setSlider1(e.target.value);
+  console.log(slider1);
 }
 
 const handleTenure=(e)=>{
@@ -37,11 +44,14 @@ const handleTenure=(e)=>{
           </div>
           <div className="main_body_container--Down">
             <h3>Down Paymnent (in %)</h3>
-            <input type="range" min={0} max={100} placeholder="Enter the Down Payment"></input>
+            <input type="range" min={0} max={100} placeholder="Enter the Down Payment" onChange={handleSlider} name="D_payment"></input>
+            {/* <div className="downPayments_values">
+              <h5>downpayment selected: {inputObj.D_payment}</h5>
+            </div> */}
           </div>
           <div className="main_body_container--Loan">
             <h3>Loan Amount</h3>
-            <input type="range" min={0} max={100} placeholder="Enter the Loan Amount"></input>
+            <input type="range" min={0} max={inputObj.P_amount} placeholder="Enter the Loan Amount"></input>
           </div>
           <div className="main_body_container--Tenure">
             <h3>Tenure</h3>
