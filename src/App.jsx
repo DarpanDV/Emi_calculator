@@ -13,6 +13,11 @@ const handleInput=(e)=>{
   })
 }
 
+const handleSlider=(e)=>{
+  setSlider1(e.target.value);
+  console.log(slider1);
+}
+
 const handleTenure=(e)=>{
  btn_value=e.target.value;
 }
