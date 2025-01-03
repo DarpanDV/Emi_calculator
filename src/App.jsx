@@ -1,37 +1,50 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import "./App.css"
-
+let btn_value=0;
+let amt=0;
 function App() {
 
 const[inputObj,setInputObj]=useState({P_amount:0,ROI:0,P_fee:0});
 const[slider1,setSlider1]=useState(50);
-const[slider2,setSlider2]=useState(50);
-let btn_value;
+const[slider2,setSlider2]=useState(0);
+
 const handleInput=(e)=>{
   setInputObj({...inputObj,
     [e.target.name]:e.target.value
   })
 }
 
-const handleSlider=(e)=>{
-  setSlider1(e.target.value);
-  console.log(slider1);
-}
 
 const handleTenure=(e)=>{
  btn_value=e.target.value;
 }
 
 const handleRange1=(e)=>{
-  console.log(e.target.value);
+  setSlider1(e.target.value);
 
 }
 
-const handleRange2=(e)=>{
-  let amt=0;
-   
+amt=0;
+  const{P_amount,ROI}=inputObj;
+  // amt=[P_amount*ROI*Math.pow((1+ROI),btn_value)]/[Math.pow((1+ROI),btn_value-1)];
+  amt= (((P_amount-slider1)*ROI*(btn_value/12))/100);
 
-}
+useEffect(()=>{
+  console.log(amt);
+  calculateEMI();
+},[slider1])
+
+const calculateEMI = () => {
+  const { P_amount, ROI } = inputObj;
+  const loanAmount = P_amount - slider1; // Principal after down payment
+  const monthlyRate = ROI / 12 / 100; // Monthly interest rate
+  const emi =
+    monthlyRate > 0
+      ? (loanAmount * monthlyRate * Math.pow(1 + monthlyRate, btn_value)) /
+        (Math.pow(1 + monthlyRate, btn_value) - 1)
+      : loanAmount / btn_value; // EMI when ROI is 0
+  setSlider2(emi.toFixed(2));
+};
 
   return (
     <>
@@ -54,14 +67,14 @@ const handleRange2=(e)=>{
           </div>
           <div className="main_body_container--Down">
             <h3>Down Paymnent (in %)</h3>
-            <input type="range" min={0} max={100} placeholder="Enter the Down Payment" onChange={handleRange1}></input>
+            <input type="range" min={0} max={inputObj.P_amount} placeholder="Enter the Down Payment" onChange={handleRange1}></input>
           </div>
           <div className="main_body_container--Loan">
             <h3>Loan Amount</h3>
-            <input type="range" min={0} max={100} placeholder="Enter the Loan Amount" onChange={handleRange2}></input>
+            <input type="range" min={0} max={inputObj.P_amount} placeholder="Enter the Loan Amount" value={slider2} readOnly></input>
           </div>
-          <div className="main_body_container--Tenure">
-            <h3>Tenure</h3>
+          <div className="main_body_container--btn_value">
+            <h3>btn_value</h3>
             <button onClick={handleTenure} value={12}>12 months</button> <button onClick={handleTenure} value={24}>24 months</button> <button onClick={handleTenure} value={36}>36 months</button>
           </div>
         </div>
