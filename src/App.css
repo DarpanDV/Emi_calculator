@@ -12,10 +12,7 @@
     flex-direction: column;
     height: 100vh;
 }
-.heading
-{
-    margin: 10px;
-}
+
 .main_body_container
 {
     width: 70vw;

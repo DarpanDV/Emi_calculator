@@ -4,7 +4,9 @@ import "./App.css"
 function App() {
 
 const[inputObj,setInputObj]=useState({P_amount:0,ROI:0,P_fee:0});
-
+const[slider1,setSlider1]=useState(50);
+const[slider2,setSlider2]=useState(50);
+let btn_value;
 const handleInput=(e)=>{
   setInputObj({...inputObj,
     [e.target.name]:e.target.value
@@ -12,7 +14,17 @@ const handleInput=(e)=>{
 }
 
 const handleTenure=(e)=>{
- console.log(e.target.value)
+ btn_value=e.target.value;
+}
+
+const handleRange1=(e)=>{
+  console.log(e.target.value);
+
+}
+
+const handleRange2=(e)=>{
+  let amt=0;
+   
 
 }
 
@@ -37,11 +49,11 @@ const handleTenure=(e)=>{
           </div>
           <div className="main_body_container--Down">
             <h3>Down Paymnent (in %)</h3>
-            <input type="range" min={0} max={100} placeholder="Enter the Down Payment"></input>
+            <input type="range" min={0} max={100} placeholder="Enter the Down Payment" onChange={handleRange1}></input>
           </div>
           <div className="main_body_container--Loan">
             <h3>Loan Amount</h3>
-            <input type="range" min={0} max={100} placeholder="Enter the Loan Amount"></input>
+            <input type="range" min={0} max={100} placeholder="Enter the Loan Amount" onChange={handleRange2}></input>
           </div>
           <div className="main_body_container--Tenure">
             <h3>Tenure</h3>
